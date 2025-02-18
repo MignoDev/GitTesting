@@ -8,5 +8,7 @@ public class Main {
         System.out.println("Salida temporal");
 
         System.out.println("Salida main nueva");
+
+        System.out.println("Nueva salida temporal");
     }
 }
