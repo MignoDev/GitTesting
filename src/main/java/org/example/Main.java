@@ -19,22 +19,22 @@ public class Main {
         {
             switch (eleccion)
             {
-                case 1:
+                case 1 -> {
                     System.out.println("Ingrese la denominación de la moneda");
                     System.out.println("se ingreso una mondea de " + agregarMoneda(teclado.nextInt()));
-                    break;
-                case 2:
+                }
+
+                case 2 -> {
                     System.out.println("Ingrese la denominación de la moneda");
                     System.out.println(cantidadMonedas(teclado.nextInt()));
-                    break;
-                case 3:
+                }
+                case 3 -> {
                     System.out.println("Usted tiene un total de: " + alcancia + "$\n" + cantidadMonedas(20) + "\n" + cantidadMonedas(50) + "\n" + cantidadMonedas(100) + "\n" + cantidadMonedas(500));
-                    break;
-                case 4:
+                }
+                case 4 -> {
                     System.out.println("Se ha roto la alcancia, ha extraido un total de " + romperAlcancia());
                     System.out.println("Cantidad actual en la alcancia: " + alcancia);
-                case 0:
-                    break;
+                }
             }
             System.out.println(menu);
             eleccion = teclado.nextInt();
@@ -45,23 +45,26 @@ public class Main {
     public static int agregarMoneda(int valor){
         switch (valor)
         {
-            case 20:
-
+            case 20 ->
+            {
                 monedas20++;
                 alcancia += 20;
-                break;
-            case 50:
+            }
+            case 50 ->
+            {
                 monedas50++;
                 alcancia += 50;
-                break;
-            case 100:
+            }
+            case 100 ->
+            {
                 monedas100++;
                 alcancia += 100;
-                break;
-            case 500:
+            }
+            case 500 ->
+            {
                 monedas500++;
                 alcancia += 500;
-                break;
+            }
         }
         return valor;
     }
@@ -71,18 +74,10 @@ public class Main {
         String mensaje = "Cantidad de monedas de ";
         switch (denominacion)
         {
-            case 20:
-                mensaje = mensaje.concat(Integer.toString(denominacion) + ": " + monedas20);
-                break;
-            case 50:
-                mensaje = mensaje.concat(Integer.toString(denominacion)).concat(": ").concat(Integer.toString(monedas50));
-                break;
-            case 100:
-                mensaje = mensaje.concat(Integer.toString(denominacion) + ": " + monedas100);
-                break;
-            case 500:
-                mensaje = mensaje.concat(Integer.toString(denominacion) + ": " + monedas500);
-                break;
+            case 20 -> mensaje = mensaje.concat(Integer.toString(denominacion) + ": " + monedas20);
+            case 50 -> mensaje = mensaje.concat(Integer.toString(denominacion)).concat(": ").concat(Integer.toString(monedas50));
+            case 100 -> mensaje = mensaje.concat(Integer.toString(denominacion) + ": " + monedas100);
+            case 500 -> mensaje = mensaje.concat(Integer.toString(denominacion) + ": " + monedas500);
         }
         return mensaje;
     }
