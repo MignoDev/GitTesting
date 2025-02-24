@@ -28,7 +28,7 @@ public class Main {
                     System.out.println(cantidadMonedas(teclado.nextInt()));
                     break;
                 case 3:
-                    System.out.println("Usted tiene un total de: " + alcancia + "\n" + cantidadMonedas(20) + "\n" + cantidadMonedas(50) + "\n" + cantidadMonedas(100) + "\n" + cantidadMonedas(500));
+                    System.out.println("Usted tiene un total de: " + alcancia + "$\n" + cantidadMonedas(20) + "\n" + cantidadMonedas(50) + "\n" + cantidadMonedas(100) + "\n" + cantidadMonedas(500));
                     break;
                 case 4:
                     System.out.println("Se ha roto la alcancia, ha extraido un total de " + romperAlcancia());
@@ -43,28 +43,22 @@ public class Main {
     }
 
     public static int agregarMoneda(int valor){
-        int denomiancion = 0;
         switch (valor)
         {
             case 20:
-                denomiancion = 20;
+
                 monedas20++;
                 alcancia += 20;
                 break;
             case 50:
-                denomiancion = 50;
-                System.out.println(monedas50);
                 monedas50++;
-                System.out.println(monedas50);
                 alcancia += 50;
                 break;
             case 100:
-                denomiancion = 100;
                 monedas100++;
                 alcancia += 100;
                 break;
             case 500:
-                denomiancion = 500;
                 monedas500++;
                 alcancia += 500;
                 break;
