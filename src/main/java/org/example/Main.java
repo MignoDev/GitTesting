@@ -143,6 +143,9 @@ public class Main {
         System.out.println("Costo promedio de camapaña en las elecciones:");
         System.out.println("$" + (costoCampana1 + costoCampana2 + costoCampana3)/3);
 
-
+        candidato1 = 0;
+        candidato2 = 0;
+        candidato3 = 0;
+        numeroVotos = 0;
     }
 }
