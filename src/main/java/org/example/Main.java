@@ -2,98 +2,117 @@ package org.example;
 
 import java.util.Scanner;
 
+import java.util.Random;
+
 public class Main {
-    static Scanner teclado = new Scanner(System.in);
-    static int monedasIngresadas = 0;
-    static int monedas20 = 0;
-    static int monedas50 = 0;
-    static int monedas100 = 0;
-    static int monedas500 = 0;
-    static int alcancia = 0;
     public static void main(String[] args) {
-        String menu = "Presione 1 para agregar monedas\nPresione 2 para ver cuantas monedas tiene de una denominación\nprecione 3 para ver cuantas monedas tiene en la alcancia\nPresione 4 para romper la alcancia\nPresione 0 para salir";
-        System.out.println(menu);
-        int eleccion = teclado.nextInt();
-        //en una alcancia es 20 50 100 500 cuanto tiene en la alcancia sin romperla  cuantas monedas de cada denominación agregar monedas cuantas monedas tiene dinero ahorrado, romper alcancia
-        while(eleccion != 0)
+
+        Scanner sc = new Scanner(System.in);
+
+        int dado1Sum =  0;
+        int dado2Sum = 0;
+        int dado1 = 0;
+        int dado2 = 0;
+
+
+        System.out.println("dados");
+        int lanzamientos = (int)(Math.random()*100);
+
+        for (int i=0; i<lanzamientos; i++)
         {
-            switch (eleccion)
+            dado1 = (int)(Math.random()*10);
+            dado2 = (int)(Math.random()*10);
+            while(dado1 > 6)
+            {
+                dado1 = (int)(Math.random()*10);
+            }
+            while(dado2 > 6)
+            {
+                dado2 = (int)(Math.random()*10);
+            }
+            dado1Sum += dado1;
+            dado2Sum += dado2;
+        }
+        if (dado1Sum > dado2Sum)
+        {
+            System.out.println("Dado 1 ganador con:" + dado1Sum + " - " + dado2Sum);
+        }else if (dado2Sum > dado1Sum) {
+            System.out.println("Dado 2 ganador con:" + dado2Sum + " - " + dado1Sum);
+        } else {
+            System.out.println("Se ha generado un empate con: " + dado1Sum + " - " + dado2Sum);
+        }
+
+        System.out.println("Piedra, papel o tijera");
+
+        //1: Piedra 2: Papel 3: Tijera
+
+        Random random = new Random();
+
+        int jugador1 = 0;
+        int jugador2 = 0;
+
+        int lanzamientoJugador1 = 0;
+        int lanzamientoJugador2 = 0;
+
+        int ronda = 0;
+
+        while (jugador1<2 && jugador2<2)
+        {
+            ronda ++;
+            lanzamientoJugador1 = 1+random.nextInt(3);
+            lanzamientoJugador2 = 1+random.nextInt(3);
+
+            switch (lanzamientoJugador1)
             {
                 case 1 -> {
-                    System.out.println("Ingrese la denominación de la moneda");
-                    System.out.println("se ingreso una mondea de " + agregarMoneda(teclado.nextInt()));
-                }
+                    switch (lanzamientoJugador2) {
+                        case 3 -> {
+                            jugador1++;
+                            System.out.println("ronda " + ronda + " gana jugador 1 con piedra contra tijera");
+                        }
+                        case 2 -> {
+                            jugador2++;
+                            System.out.println("ronda " + ronda + " gana jugador 2 con papel contra piedra");
+                        }
+                        default -> System.out.println("ronda " + ronda + " empate");
 
+                    }
+                }
                 case 2 -> {
-                    System.out.println("Ingrese la denominación de la moneda");
-                    System.out.println(cantidadMonedas(teclado.nextInt()));
+                    switch (lanzamientoJugador2){
+                        case 1 -> {
+                            jugador1++;
+                            System.out.println("ronda " + ronda + " gana jugador 1 con papel contra piedra");
+                        }
+                        case 3 -> {
+                            jugador2++;
+                            System.out.println("ronda " + ronda + " gana jugador 2 con tijera contra papel");
+                        }
+                        default -> System.out.println("ronda " + ronda + " empate");
+                    }
                 }
                 case 3 -> {
-                    System.out.println("Usted tiene un total de: " + alcancia + "$\n" + cantidadMonedas(20) + "\n" + cantidadMonedas(50) + "\n" + cantidadMonedas(100) + "\n" + cantidadMonedas(500));
+                    switch (lanzamientoJugador2) {
+                        case 1 -> {
+                            jugador2++;
+                            System.out.println("ronda " + ronda + " gana jugador 2 con piedra contra tijera");
+                        }
+                        case 2 -> {
+                            jugador1++;
+                            System.out.println("ronda " + ronda + " gana jugador 1 con tijera contra papel");
+                        }
+                        default -> System.out.println("ronda " + ronda + " empate");
+                    }
                 }
-                case 4 -> {
-                    System.out.println("Se ha roto la alcancia, ha extraido un total de " + romperAlcancia());
-                    System.out.println("Cantidad actual en la alcancia: " + alcancia);
-                }
             }
-            System.out.println(menu);
-            eleccion = teclado.nextInt();
+
         }
 
-    }
-
-    public static int agregarMoneda(int valor){
-        switch (valor)
+        if (jugador1 > jugador2)
         {
-            case 20 ->
-            {
-                monedas20++;
-                alcancia += 20;
-            }
-            case 50 ->
-            {
-                monedas50++;
-                alcancia += 50;
-            }
-            case 100 ->
-            {
-                monedas100++;
-                alcancia += 100;
-            }
-            case 500 ->
-            {
-                monedas500++;
-                alcancia += 500;
-            }
+            System.out.println("Ganador jugador 1 con: " + jugador1 + " - " + jugador2);
+        } else {
+            System.out.println("Ganador jugador 2 con: " + jugador2 + " - " + jugador1);
         }
-        return valor;
     }
-
-    public static String cantidadMonedas(int denominacion)
-    {
-        String mensaje = "Cantidad de monedas de ";
-        switch (denominacion)
-        {
-            case 20 -> mensaje = mensaje.concat(Integer.toString(denominacion) + ": " + monedas20);
-            case 50 -> mensaje = mensaje.concat(Integer.toString(denominacion)).concat(": ").concat(Integer.toString(monedas50));
-            case 100 -> mensaje = mensaje.concat(Integer.toString(denominacion) + ": " + monedas100);
-            case 500 -> mensaje = mensaje.concat(Integer.toString(denominacion) + ": " + monedas500);
-        }
-        return mensaje;
-    }
-
-    public static int romperAlcancia ()
-    {
-        int cantidadMonedasAlcancia = alcancia;
-
-        monedas50 = 0;
-        monedas20 = 0;
-        monedas100 = 0;
-        monedas500 = 0;
-        alcancia = 0;
-        monedasIngresadas = 0;
-
-        return cantidadMonedasAlcancia;
-    }
-
 }
