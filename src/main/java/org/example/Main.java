@@ -9,110 +9,140 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        int dado1Sum =  0;
-        int dado2Sum = 0;
-        int dado1 = 0;
-        int dado2 = 0;
+        Random rnd = new Random();
+
+        int influenciaInternet = 7000000;
+        int influenciaRadio = 200000;
+        int influenciaTelevision = 600000;
+
+        int candidato1 = 0;
+        int costoCampana1 = 0;
+        double porcentaje1 = 0f;
+        int candidato1Internet = 0;
+        int candidato1Radio = 0;
+        int candidato1Television = 0;
+
+        int candidato2 = 0;
+        int costoCampana2 = 0;
+        double porcentaje2 = 0f;
+        int candidato2Internet = 0;
+        int candidato2Radio = 0;
+        int candidato2Television = 0;
+
+        int candidato3 = 0;
+        int costoCampana3 = 0;
+        double porcentaje3 = 0f;
+        int candidato3Internet = 0;
+        int candidato3Radio = 0;
+        int candidato3Television = 0;
+
+        int numeroVotos = 1+rnd.nextInt(100);
+
+        int metodoVoto = 1+rnd.nextInt(3);
+
+        int voto = 1+rnd.nextInt(3);
+
+        double costoPromedio = 0;
 
 
-        System.out.println("dados");
-        int lanzamientos = (int)(Math.random()*100);
-
-        for (int i=0; i<lanzamientos; i++)
+        for (int i = 0; i < numeroVotos; i++)
         {
-            dado1 = (int)(Math.random()*10);
-            dado2 = (int)(Math.random()*10);
-            while(dado1 > 6)
-            {
-                dado1 = (int)(Math.random()*10);
-            }
-            while(dado2 > 6)
-            {
-                dado2 = (int)(Math.random()*10);
-            }
-            dado1Sum += dado1;
-            dado2Sum += dado2;
-        }
-        if (dado1Sum > dado2Sum)
-        {
-            System.out.println("Dado 1 ganador con:" + dado1Sum + " - " + dado2Sum);
-        }else if (dado2Sum > dado1Sum) {
-            System.out.println("Dado 2 ganador con:" + dado2Sum + " - " + dado1Sum);
-        } else {
-            System.out.println("Se ha generado un empate con: " + dado1Sum + " - " + dado2Sum);
-        }
-
-        System.out.println("Piedra, papel o tijera");
-
-        //1: Piedra 2: Papel 3: Tijera
-
-        Random random = new Random();
-
-        int jugador1 = 0;
-        int jugador2 = 0;
-
-        int lanzamientoJugador1 = 0;
-        int lanzamientoJugador2 = 0;
-
-        int ronda = 0;
-
-        while (jugador1<2 && jugador2<2)
-        {
-            ronda ++;
-            lanzamientoJugador1 = 1+random.nextInt(3);
-            lanzamientoJugador2 = 1+random.nextInt(3);
-
-            switch (lanzamientoJugador1)
-            {
+            //System.out.println(voto);
+            switch (metodoVoto){
                 case 1 -> {
-                    switch (lanzamientoJugador2) {
-                        case 3 -> {
-                            jugador1++;
-                            System.out.println("ronda " + ronda + " gana jugador 1 con piedra contra tijera");
+                    switch (voto)
+                    {
+                        case 1 -> {
+                            candidato1++;
+                            candidato1Internet++;
                         }
                         case 2 -> {
-                            jugador2++;
-                            System.out.println("ronda " + ronda + " gana jugador 2 con papel contra piedra");
+                            candidato2++;
+                            candidato2Internet++;
                         }
-                        default -> System.out.println("ronda " + ronda + " empate");
-
+                        case 3 -> {
+                            candidato3++;
+                            candidato3Internet++;
+                        }
                     }
                 }
                 case 2 -> {
-                    switch (lanzamientoJugador2){
+                    switch (voto)
+                    {
                         case 1 -> {
-                            jugador1++;
-                            System.out.println("ronda " + ronda + " gana jugador 1 con papel contra piedra");
+                            candidato1++;
+                            candidato1Radio++;
+                        }
+                        case 2 -> {
+                            candidato2++;
+                            candidato2Radio++;
                         }
                         case 3 -> {
-                            jugador2++;
-                            System.out.println("ronda " + ronda + " gana jugador 2 con tijera contra papel");
+                            candidato3++;
+                            candidato3Radio++;
                         }
-                        default -> System.out.println("ronda " + ronda + " empate");
                     }
                 }
                 case 3 -> {
-                    switch (lanzamientoJugador2) {
+                    switch (voto)
+                    {
                         case 1 -> {
-                            jugador2++;
-                            System.out.println("ronda " + ronda + " gana jugador 2 con piedra contra tijera");
+                            candidato1++;
+                            candidato1Television++;
                         }
                         case 2 -> {
-                            jugador1++;
-                            System.out.println("ronda " + ronda + " gana jugador 1 con tijera contra papel");
+                            candidato2++;
+                            candidato2Television++;
                         }
-                        default -> System.out.println("ronda " + ronda + " empate");
+                        case 3 -> {
+                            candidato3++;
+                            candidato3Television++;
+                        }
                     }
                 }
             }
 
+            metodoVoto = 1+rnd.nextInt(3);
+
+            voto = 1+rnd.nextInt(3);
         }
 
-        if (jugador1 > jugador2)
-        {
-            System.out.println("Ganador jugador 1 con: " + jugador1 + " - " + jugador2);
-        } else {
-            System.out.println("Ganador jugador 2 con: " + jugador2 + " - " + jugador1);
-        }
+        costoCampana1 = (influenciaInternet * candidato1Internet) + (influenciaRadio * candidato1Radio) + (influenciaTelevision * candidato1Television);
+        costoCampana2 = (influenciaInternet * candidato2Internet) + (influenciaRadio * candidato2Radio) + (influenciaTelevision * candidato2Television);
+        costoCampana3 = (influenciaInternet * candidato3Internet) + (influenciaRadio * candidato3Radio) + (influenciaTelevision * candidato3Television);
+
+        porcentaje1 = (candidato1/((double)numeroVotos))*100;
+        porcentaje2 = (candidato2/((double)numeroVotos))*100;
+        porcentaje3 = (candidato3/((double)numeroVotos))*100;
+
+
+
+        System.out.println("Costo camapaña candidato 1: " + costoCampana1);
+        System.out.println("Influencia internet: " + (influenciaInternet * candidato1Internet));
+        System.out.println("Influencia radio: " + (influenciaRadio * candidato1Radio));
+        System.out.println("Influencia telvisión: " + (influenciaTelevision * candidato1Television));
+        System.out.println("--------------------------------------------");
+        System.out.println("Costo camapaña candidato 2: " + costoCampana2);
+        System.out.println("Influencia internet: " + (influenciaInternet * candidato2Internet));
+        System.out.println("Influencia radio: " + (influenciaRadio * candidato2Radio));
+        System.out.println("Influencia telvisión: " + (influenciaTelevision * candidato2Television));
+        System.out.println("--------------------------------------------");
+        System.out.println("Costo camapaña candidato 3: " + costoCampana3);
+        System.out.println("Influencia internet: " + (influenciaInternet * candidato3Internet));
+        System.out.println("Influencia radio: " + (influenciaRadio * candidato3Radio));
+        System.out.println("Influencia telvisión: " + (influenciaTelevision * candidato3Television));
+        System.out.println("--------------------------------------------");
+
+        System.out.println("Número total de votos " + numeroVotos);
+
+        System.out.println("Porcentaje de votos por candidato");
+        System.out.println("Candidato 1: " + porcentaje1 + "%");
+        System.out.println("Candidato 2: " + porcentaje2 + "%");
+        System.out.println("Candidato 3: " + porcentaje3 + "%");
+        System.out.println("--------------------------------------------");
+        System.out.println("Costo promedio de camapaña en las elecciones:");
+        System.out.println("$" + (costoCampana1 + costoCampana2 + costoCampana3)/3);
+
+
     }
 }
