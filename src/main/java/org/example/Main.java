@@ -1,151 +1,74 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
-import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        Scanner teclado = new Scanner(System.in);
 
-        Random rnd = new Random();
+        CuentaBancaria cuenta1 = new CuentaBancaria("José Gonzales", 0, "1");
+        CuentaBancaria cuenta2 = new CuentaBancaria("Mario Perez", 1000000, "2");
+        CuentaBancaria cuenta3 = new CuentaBancaria();
 
-        int influenciaInternet = 7000000;
-        int influenciaRadio = 200000;
-        int influenciaTelevision = 600000;
+        List<CuentaBancaria> cuentasBancarias = new ArrayList<>();
+        cuenta3.setTitular("Francisco Fuentes");
+        cuenta3.setSaldo(25000000);
+        cuenta3.setNumeroCuenta("3");
 
-        int candidato1 = 0;
-        int costoCampana1 = 0;
-        double porcentaje1 = 0f;
-        int candidato1Internet = 0;
-        int candidato1Radio = 0;
-        int candidato1Television = 0;
+        cuentasBancarias.add(cuenta1);
+        cuentasBancarias.add(cuenta2);
+        cuentasBancarias.add(cuenta3);
 
-        int candidato2 = 0;
-        int costoCampana2 = 0;
-        double porcentaje2 = 0f;
-        int candidato2Internet = 0;
-        int candidato2Radio = 0;
-        int candidato2Television = 0;
+        int opcion = 0;
+        double monto;
+        String numeroCuenta;
 
-        int candidato3 = 0;
-        int costoCampana3 = 0;
-        double porcentaje3 = 0f;
-        int candidato3Internet = 0;
-        int candidato3Radio = 0;
-        int candidato3Television = 0;
-
-        int numeroVotos = 1+rnd.nextInt(100);
-
-        int metodoVoto = 1+rnd.nextInt(3);
-
-        int voto = 1+rnd.nextInt(3);
-
-        double costoPromedio = 0;
-
-
-        for (int i = 0; i < numeroVotos; i++)
+        System.out.println("Cuentas disponibles");
+        for (CuentaBancaria cuenta: cuentasBancarias)
         {
-            //System.out.println(voto);
-            switch (metodoVoto){
-                case 1 -> {
-                    switch (voto)
-                    {
+            System.out.println(cuenta.getNumeroCuenta());
+        }
+
+        do {
+
+            System.out.println("Ingrese su número de cuenta o presione 0 para salir");
+            numeroCuenta = teclado.next();
+
+            for (CuentaBancaria cuenta: cuentasBancarias)
+            {
+                if (numeroCuenta.equals(cuenta.getNumeroCuenta()))
+                {
+                    System.out.println("Presione 1 para retirar dinero\nPresione 2 para depositar dinero\nPresione 3 para ver la información de su cuenta\n presione cualquier otro boton para salir");
+                    opcion = teclado.nextInt();
+
+                    switch (opcion){
                         case 1 -> {
-                            candidato1++;
-                            candidato1Internet++;
+                            do{
+                                System.out.println("ingrese el monto a retirar");
+                                monto = teclado.nextDouble();
+                            } while (!cuenta.retirar(monto));
+                            monto = 0;
                         }
                         case 2 -> {
-                            candidato2++;
-                            candidato2Internet++;
+                            System.out.println("Ingrese el monto del depósito");
+                            monto = teclado.nextDouble();
+                            cuenta.depositar(monto);
+                            monto = 0;
                         }
                         case 3 -> {
-                            candidato3++;
-                            candidato3Internet++;
+                            System.out.println(cuenta.toString());
                         }
                     }
-                }
-                case 2 -> {
-                    switch (voto)
-                    {
-                        case 1 -> {
-                            candidato1++;
-                            candidato1Radio++;
-                        }
-                        case 2 -> {
-                            candidato2++;
-                            candidato2Radio++;
-                        }
-                        case 3 -> {
-                            candidato3++;
-                            candidato3Radio++;
-                        }
-                    }
-                }
-                case 3 -> {
-                    switch (voto)
-                    {
-                        case 1 -> {
-                            candidato1++;
-                            candidato1Television++;
-                        }
-                        case 2 -> {
-                            candidato2++;
-                            candidato2Television++;
-                        }
-                        case 3 -> {
-                            candidato3++;
-                            candidato3Television++;
-                        }
-                    }
+                } else {
+                    opcion = 0;
                 }
             }
 
-            metodoVoto = 1+rnd.nextInt(3);
 
-            voto = 1+rnd.nextInt(3);
-        }
-
-        costoCampana1 = (influenciaInternet * candidato1Internet) + (influenciaRadio * candidato1Radio) + (influenciaTelevision * candidato1Television);
-        costoCampana2 = (influenciaInternet * candidato2Internet) + (influenciaRadio * candidato2Radio) + (influenciaTelevision * candidato2Television);
-        costoCampana3 = (influenciaInternet * candidato3Internet) + (influenciaRadio * candidato3Radio) + (influenciaTelevision * candidato3Television);
-
-        porcentaje1 = (candidato1/((double)numeroVotos))*100;
-        porcentaje2 = (candidato2/((double)numeroVotos))*100;
-        porcentaje3 = (candidato3/((double)numeroVotos))*100;
-
-
-
-        System.out.println("Costo camapaña candidato 1: " + costoCampana1);
-        System.out.println("Influencia internet: " + (influenciaInternet * candidato1Internet));
-        System.out.println("Influencia radio: " + (influenciaRadio * candidato1Radio));
-        System.out.println("Influencia telvisión: " + (influenciaTelevision * candidato1Television));
-        System.out.println("--------------------------------------------");
-        System.out.println("Costo camapaña candidato 2: " + costoCampana2);
-        System.out.println("Influencia internet: " + (influenciaInternet * candidato2Internet));
-        System.out.println("Influencia radio: " + (influenciaRadio * candidato2Radio));
-        System.out.println("Influencia telvisión: " + (influenciaTelevision * candidato2Television));
-        System.out.println("--------------------------------------------");
-        System.out.println("Costo camapaña candidato 3: " + costoCampana3);
-        System.out.println("Influencia internet: " + (influenciaInternet * candidato3Internet));
-        System.out.println("Influencia radio: " + (influenciaRadio * candidato3Radio));
-        System.out.println("Influencia telvisión: " + (influenciaTelevision * candidato3Television));
-        System.out.println("--------------------------------------------");
-
-        System.out.println("Número total de votos " + numeroVotos);
-
-        System.out.println("Porcentaje de votos por candidato");
-        System.out.println("Candidato 1: " + porcentaje1 + "%");
-        System.out.println("Candidato 2: " + porcentaje2 + "%");
-        System.out.println("Candidato 3: " + porcentaje3 + "%");
-        System.out.println("--------------------------------------------");
-        System.out.println("Costo promedio de camapaña en las elecciones:");
-        System.out.println("$" + (costoCampana1 + costoCampana2 + costoCampana3)/3);
-
-        candidato1 = 0;
-        candidato2 = 0;
-        candidato3 = 0;
-        numeroVotos = 0;
+        } while ((opcion == 1 || opcion == 2 || opcion == 3) || !numeroCuenta.equals("0"));
     }
 }
+
