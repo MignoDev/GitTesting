@@ -2,73 +2,92 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        RuletaRusa ruletaRusa;
+        Scanner scanner = new Scanner(System.in);
+        List<String>jugadores = new ArrayList<>();
 
-        Scanner teclado = new Scanner(System.in);
+        Random random = new Random();
 
-        CuentaBancaria cuenta1 = new CuentaBancaria("José Gonzales", 0, "1");
-        CuentaBancaria cuenta2 = new CuentaBancaria("Mario Perez", 1000000, "2");
-        CuentaBancaria cuenta3 = new CuentaBancaria();
+        int jugadorTurno;
+        int numeroJugadores;
+        int opcion;
 
-        List<CuentaBancaria> cuentasBancarias = new ArrayList<>();
-        cuenta3.setTitular("Francisco Fuentes");
-        cuenta3.setSaldo(25000000);
-        cuenta3.setNumeroCuenta("3");
+        //region Inicio del juego
+        System.out.println("Ruleta rusa, presione 1 para jugar cualquier otra numero para cerrar el juego");
+        opcion = scanner.nextInt();
+        //endregion
+        while(opcion == 1) {
 
-        cuentasBancarias.add(cuenta1);
-        cuentasBancarias.add(cuenta2);
-        cuentasBancarias.add(cuenta3);
-
-        int opcion = 0;
-        double monto;
-        String numeroCuenta;
-
-        System.out.println("Cuentas disponibles");
-        for (CuentaBancaria cuenta: cuentasBancarias)
-        {
-            System.out.println(cuenta.getNumeroCuenta());
-        }
-
-        do {
-
-            System.out.println("Ingrese su número de cuenta o presione 0 para salir");
-            numeroCuenta = teclado.next();
-
-            for (CuentaBancaria cuenta: cuentasBancarias)
+            //region seleccion de jugadores
+            do {
+                System.out.println("ingrese cantidad de jugadores");
+                numeroJugadores = scanner.nextInt();
+                if (numeroJugadores <= 0) {
+                    System.out.println("numero de jugadores invalido");
+                } else {
+                    for (int i = 0; i < numeroJugadores; i++) {
+                        System.out.println("ingrese nombre del jugador " + (i+1));
+                        jugadores.add(scanner.next());
+                    }
+                }
+            } while (numeroJugadores <= 0);
+            int nCamaras;
+            if (numeroJugadores < 4)
             {
-                if (numeroCuenta.equals(cuenta.getNumeroCuenta()))
-                {
-                    System.out.println("Presione 1 para retirar dinero\nPresione 2 para depositar dinero\nPresione 3 para ver la información de su cuenta\n presione cualquier otro boton para salir");
-                    opcion = teclado.nextInt();
+                nCamaras = 4;
+            } else if( numeroJugadores > 6)
+            {
+                nCamaras = 6;
+            } else {
+                nCamaras = numeroJugadores;
+            }
+            ruletaRusa = new RuletaRusa(nCamaras);
+            //endregion
 
-                    switch (opcion){
-                        case 1 -> {
-                            do{
-                                System.out.println("ingrese el monto a retirar");
-                                monto = teclado.nextDouble();
-                            } while (!cuenta.retirar(monto));
-                            monto = 0;
+            //region Desarrollo del juego
+
+            jugadorTurno = random.nextInt(0, jugadores.size() - 1);
+
+            do {
+                System.out.println("turno del jugador " + jugadores.get(jugadorTurno));
+                System.out.println("presione 1 para disparar");
+                opcion = scanner.nextInt();
+                if (opcion == 1)
+                {
+                    if (ruletaRusa.disparar()) {
+                        System.out.println("Jugador " + jugadores.get(jugadorTurno) + " eliminado");
+                        jugadores.remove(jugadorTurno);
+                        if (jugadorTurno >= jugadores.size()-1) {
+                            jugadorTurno = 0;
+                        } else {
+                            jugadorTurno++;
                         }
-                        case 2 -> {
-                            System.out.println("Ingrese el monto del depósito");
-                            monto = teclado.nextDouble();
-                            cuenta.depositar(monto);
-                            monto = 0;
-                        }
-                        case 3 -> {
-                            System.out.println(cuenta.toString());
+                    } else {
+                        if (jugadorTurno >= jugadores.size()-1) {
+                            jugadorTurno = 0;
+                        } else {
+                            jugadorTurno++;
                         }
                     }
-                } else {
-                    opcion = 0;
                 }
-            }
+            } while (jugadores.size() >= 2);
 
 
-        } while ((opcion == 1 || opcion == 2 || opcion == 3) || !numeroCuenta.equals("0"));
+            //endregion
+
+            //region fin del juego
+            System.out.println("Ganador jugador " + jugadores.getFirst());
+            System.out.println("Si desea reinciar presione 1, si desea reiniciar,si desea salir presione otro numero");
+            opcion = scanner.nextInt();
+            //endregion
+        }
+
+
     }
 }
 
