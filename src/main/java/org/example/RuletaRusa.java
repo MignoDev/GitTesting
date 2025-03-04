@@ -10,12 +10,12 @@ public class RuletaRusa {
     /*
         Atributos
      */
-    List<Integer> tambor = new ArrayList<>();
+    private List<Integer> tambor = new ArrayList<>();
 
-    int bala;
-    int posicionActual;
+    private int bala;
+    private int posicionActual;
 
-    Random random;
+    private Random random;
 
     /*
         Constructor
@@ -31,6 +31,52 @@ public class RuletaRusa {
         this.posicionActual = random.nextInt(0,tambor.getLast());
 
 
+    }
+
+    /*
+        setter y getters
+     */
+
+    public List<Integer> getTambor() {
+        return tambor;
+    }
+
+    public void setTambor(List<Integer> tambor) {
+        this.tambor = tambor;
+    }
+
+    public int getBala() {
+        return bala;
+    }
+
+    public void setBala(int bala) {
+        this.bala = bala;
+    }
+
+    public int getPosicionActual() {
+        return posicionActual;
+    }
+
+    public void setPosicionActual(int posicionActual) {
+        this.posicionActual = posicionActual;
+    }
+
+    public Random getRandom() {
+        return random;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    @Override
+    public String toString() {
+        return "RuletaRusa{" +
+                "tambor=" + tambor +
+                ", bala=" + bala +
+                ", posicionActual=" + posicionActual +
+                ", random=" + random +
+                '}';
     }
 
     /*
