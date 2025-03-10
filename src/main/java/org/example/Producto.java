@@ -64,6 +64,7 @@ public class Producto {
         if (cantidad <= this.stock)
         {
             this.stock -= cantidad;
+            System.out.println("Se ha vendido " + cantidad + ", Stock actual: " + this.stock);
             return true;
         }
         System.out.println("Stock insuficiente, stock actual: " + stock);
@@ -74,7 +75,12 @@ public class Producto {
     //region Reponer stock
     public void reponerStock (int cantidad)
     {
-        stock += cantidad;
+        if (cantidad > 0)
+        {
+            System.out.println("Cantidad anterior");
+            stock += cantidad;
+        }
+        System.out.println("Se ingresó un valor inválido");
     }
     //endregion
 

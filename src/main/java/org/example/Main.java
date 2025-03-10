@@ -15,7 +15,7 @@ public class Main {
         while (opcion != 0)
         {
             System.out.println("Opción 1: crear producto\nOpción 2: vender producto\nOpción 3: Reponer stock\nOpción 4: Aplicar descuento\nOpción 5: información del producto\nOpción 6: subir precio");
-            System.out.println("Opción 7: valor inventario\nOpción 8: Comparar precios");
+            System.out.println("Opción 7: valor inventario\nOpción 8: Comparar precios\nOpcion 9: ver lista de productos");
             opcion = tcl.nextInt();
             switch (opcion){
                 case 1 -> {
@@ -129,6 +129,12 @@ public class Main {
                                 }
                             }
                         }
+                    }
+                }
+                case 9 -> {
+                    for (Producto producto : listProductos)
+                    {
+                        System.out.println(producto.toString());
                     }
                 }
             }
