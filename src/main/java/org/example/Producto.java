@@ -61,13 +61,18 @@ public class Producto {
     //region VentaProductos
     public boolean vender(int cantidad)
     {
-        if (cantidad <= this.stock)
+        if (cantidad > 0)
         {
-            this.stock -= cantidad;
-            System.out.println("Se ha vendido " + cantidad + ", Stock actual: " + this.stock);
-            return true;
+            if (cantidad <= this.stock)
+            {
+                this.stock -= cantidad;
+                System.out.println("Se ha vendido " + cantidad + ", Stock actual: " + this.stock);
+                return true;
+            }
+            System.out.println("Stock insuficiente, stock actual: " + stock);
+            return false;
         }
-        System.out.println("Stock insuficiente, stock actual: " + stock);
+        System.out.println("Valor inválido");
         return false;
     }
     //endregion
